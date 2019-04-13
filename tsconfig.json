@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "outDir": "built"
+    },
+    "include": [
+        "src/**/**.ts",
+        "src/**/**.tsx"
+    ],
+    "files": [
+        "src/server.ts"
+    ]
+}

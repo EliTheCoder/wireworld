@@ -1,0 +1,44 @@
+@tileSize: 20px;
+@tileThickness: 0px;
+@tileSpacing: 0px;
+@tileCorners: 4px;
+
+body {
+    background-color: #220070;
+    margin: 0;
+}
+
+.tile {
+    border-style: solid;
+    border-width: @tileThickness;
+    border-radius: @tileCorners;
+    height: @tileSize;
+    width: @tileSize;
+    margin-right: @tileSpacing;
+    margin-bottom: 0;
+    padding: 0;
+    display: inline-block;
+    background-color: rgb(31, 0, 41);
+}
+
+.tile.blue {
+    background-color: #5560F4;
+}
+.tile.red {
+    background-color: #ED3154;
+}
+.tile.wire {
+    background-color: #15A55D;
+}
+.tile.yellow {
+    background-color: #DEE256;
+}
+
+.row {
+    height: @tileSize + @tileSpacing * 2 + @tileThickness * 2;
+}
+
+.grid {
+    white-space: nowrap;
+    border-spacing: 0;
+}
