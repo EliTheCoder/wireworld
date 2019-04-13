@@ -1,9 +1,3 @@
-import { DOMElement } from "react";
-
-interface Props {
-    size: string;
-}
-
 const socket = io();
 
 class clickableGrid {
