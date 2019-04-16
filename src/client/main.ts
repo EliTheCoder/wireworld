@@ -2,7 +2,16 @@ const socket = io();
 
 class clickableGrid {
     element: HTMLTableElement;
-    constructor(rows: number, cols: number, callback: (el: HTMLTableDataCellElement, r: number, c: number, i: number) => void) {
+    constructor(
+        rows: number,
+        cols: number,
+        callback: (
+            el: HTMLTableDataCellElement,
+            r: number,
+            c: number,
+            i: number
+        ) => void
+    ) {
         let i = 0;
         let grid = document.createElement("table");
         grid.className = "grid";
@@ -11,8 +20,8 @@ class clickableGrid {
             tr.classList.add("row");
             for (var c = 0; c < cols; ++c) {
                 let cell = tr.appendChild(document.createElement("td"));
-                cell.id = ++i + '';
-                cell.classList.add("tile")
+                cell.id = ++i + "";
+                cell.classList.add("tile");
                 cell.addEventListener(
                     "click",
                     (function(el, r, c, i) {
@@ -29,15 +38,20 @@ class clickableGrid {
 }
 
 let grid = new clickableGrid(100, 100, (el, r, c, i) => {
-    socket.emit("click", {})
-});
-document.body.appendChild(grid.element);
-
-$(".tile").mousedown(e => {
-    if (e.target.classList.contains("wire")) {
-        socket.emit("remove", {});
-        e.target.classList.remove("wire");
+    if (el.classList.contains("wire")) {
+        socket.emit("remove", { i: i });
+        el.classList.remove("wire");
     } else {
-        e.target.classList.add("wire");
+        socket.emit("add", { i: i });
+        el.classList.add("wire");
     }
 });
+
+socket.on("add", (data: {i: number}) => {
+    $(`#${data.i}`).addClass("wire")
+});
+socket.on("remove", (data: { i: number }) => {
+    $(`#${data.i}`).removeClass("wire");
+});
+
+document.body.appendChild(grid.element);
